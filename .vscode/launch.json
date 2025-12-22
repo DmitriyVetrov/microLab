@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Launch (http) - localhost:5000 (Catalog.API)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: Catalog.API",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/src/Services/Catalog/Catalog.API/Catalog.API.csproj",
+        "--no-build"
+      ],
+      "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.API",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      },
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    },
+    {
+      "name": ".NET Launch (https+http) - 5050/5000 (Catalog.API)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: Catalog.API",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/src/Services/Catalog/Catalog.API/Catalog.API.csproj",
+        "--no-build"
+      ],
+      "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.API",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:5050;http://localhost:5000"
+      },
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      }
+    }
+  ]
+}
