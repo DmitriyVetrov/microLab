@@ -1,6 +1,23 @@
 {
   "version": "0.2.0",
   "configurations": [
+        {
+      "name": ".NET Debug Catalog.API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: Catalog.API",
+
+      "program": "${workspaceFolder}/src/Services/Catalog/Catalog.API/bin/Debug/net8.0/Catalog.API.dll",
+      "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.API",
+
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      },
+
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    },
     {
       "name": ".NET Launch (http) - localhost:5000 (Catalog.API)",
       "type": "coreclr",
