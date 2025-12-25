@@ -110,6 +110,20 @@
       "netCore": {
         "appProject": "${workspaceFolder}/src/Services/Catalog/Catalog.API/Catalog.API.csproj"
       }
+    },
+    {
+      "label": "build: Basket.API",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/Services/Basket/Basket.API/Basket.API.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
