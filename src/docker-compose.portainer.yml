@@ -1,0 +1,82 @@
+name: src
+services:
+  basketdb:
+    container_name: basketdb
+    environment:
+      POSTGRES_DB: BasketDb
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5433"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: volume
+        source: postgres_basket
+        target: /var/lib/postgresql
+        volume: {}
+  catalog.api:
+    build:
+      context: /home/dmytro/git/microLab/src
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    depends_on:
+      catalogdb:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_Kestrel__Certificates__Default__Password: pass123
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/catalogapi.pfx
+      ASPNETCORE_URLS: http://+:8080;https://+:8081
+      ConnectionStrings__Database: Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
+    image: catalogapi
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "6000"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "6060"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /home/dmytro/.aspnet/https
+        target: /https
+        read_only: true
+        bind: {}
+  catalogdb:
+    container_name: catalogdb
+    environment:
+      POSTGRES_DB: CatalogDb
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: volume
+        source: postgres_catalog
+        target: /var/lib/postgresql
+        volume: {}
+networks:
+  default:
+    name: src_default
+volumes:
+  postgres_basket:
+    name: src_postgres_basket
+  postgres_catalog:
+    name: src_postgres_catalog
